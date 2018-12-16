@@ -139,3 +139,8 @@ Java Model Exception: Java Model Status [Invalid name specified: Mult .java]
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 !SUBENTRY 1 org.eclipse.jdt.core 4 983 2018-12-16 18:10:31.401
 !MESSAGE Invalid name specified: Mult .java
+
+!ENTRY org.eclipse.core.resources 2 2 2018-12-16 18:37:03.528
+!MESSAGE Save operation warnings.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2018-12-16 18:37:03.528
+!MESSAGE The project description file (.project) for 'DairyQueen' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
