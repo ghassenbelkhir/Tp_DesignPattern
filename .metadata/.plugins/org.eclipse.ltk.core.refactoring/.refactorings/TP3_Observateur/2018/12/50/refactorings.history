@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;Observateur&apos; to &apos;question1&apos;&#x0D;&#x0A;- Original project: &apos;TP3_Observateur&apos;&#x0D;&#x0A;- Original element: &apos;TP3_Observateur/src/Observateur&apos;&#x0D;&#x0A;- Renamed element: &apos;TP3_Observateur/src/question1&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;Observateur&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;Observateur" name="question1" qualified="false" references="true" stamp="1544873914810" textual="false" version="1.0"/>
+</session>

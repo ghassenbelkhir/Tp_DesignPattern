@@ -1,0 +1,5 @@
+// Because we extend IceCream, IceCreamDecorator is-a IceCream
+package lab3;
+public abstract class IceCreamDecorator extends Dessert {
+ public abstract String getDescription();
+}

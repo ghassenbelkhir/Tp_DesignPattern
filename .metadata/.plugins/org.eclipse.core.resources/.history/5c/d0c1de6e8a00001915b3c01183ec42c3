@@ -1,0 +1,17 @@
+package lab3;
+
+public class WhippedCream  extends IceCreamDecorator{
+
+	@Override
+	public String getDescription() {
+		// TODO Auto-generated method stub
+		return super.description +", Whipped Cream";
+	}
+
+	@Override
+	public double cost() {
+		// TODO Auto-generated method stub
+		return cost()+0.25;
+	}
+
+}

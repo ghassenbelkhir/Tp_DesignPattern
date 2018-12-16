@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Lab: Getting Started With JUnit</title>
+<script type="text/javascript"
+  src="http://cse.osu.edu/software/web/syntaxhighlighter/scripts/shCore.js"></script>
+<script type="text/javascript"
+  src="http://cse.osu.edu/software/web/syntaxhighlighter/scripts/shBrushJava.js"></script>
+<link type="text/css" rel="stylesheet"
+  href="http://cse.osu.edu/software/web/syntaxhighlighter/styles/shCoreEclipse.css" />
+<script type="text/javascript">
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<style type="text/css">
+ol.nested {
+	counter-reset: item
+}
+
+li.nested {
+	display: block
+}
+
+li.nested:before {
+	content: counters(item, ".") ". ";
+	counter-increment: item
+}
+
+.mainimage {
+	max-width: 100%
+}
+
+.thumbnail {
+	position: relative;
+	z-index: 0;
+}
+
+.thumbnail:hover {
+	background-color: transparent;
+	z-index: 50;
+}
+
+.thumbnail span { /* CSS for enlarged image */
+	position: absolute;
+	/* background-color: lightyellow; */
+	/* padding: 5px; */
+	/* left: -1000px; */
+	/* border: 1px dashed gray; */
+	visibility: hidden;
+	color: black;
+	text-decoration: none;
+}
+
+.thumbnail span img { /* CSS for enlarged image */
+	border-width: 0;
+	/* padding: 2px; */
+	/* max-width: 100%; */
+}
+
+.thumbnail:hover span { /* CSS for enlarged image on hover */
+	visibility: visible;
+	top: 0;
+	left: 60px;
+	/* position where enlarged image should offset horizontally */
+}
+
+table {
+	font-family: arial, sans;
+	border-collapse: collapse;
+	/* width: 100%; */
+	/* table-layout: fixed; */
+}
+
+table .var {
+	width: 100%;
+}
+
+table .stm {
+	width: auto;
+}
+
+th,td {
+	border: 2px solid black;
+	padding: 5px;
+}
+/*
+td {
+    text-align: center;
+}
+*/
+td.left {
+	text-align: left;
+}
+
+tr.header th {
+	background-color: #C3D9FF;
+	color: black;
+}
+
+tr.variables td {
+	background-color: #F9F9F9;
+	color: black;
+	vertical-align: top;
+}
+
+tr.statement td {
+	background-color: #E5ECF9;
+	color: black;
+	font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New",
+		Courier, monospace;
+	font-size: 1em !important;
+	white-space: nowrap;
+}
+
+tr.odd td {
+	background-color: #F9F9F9;
+	color: black;
+	font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New",
+		Courier, monospace;
+	font-size: 1em !important;
+	white-space: nowrap;
+}
+
+tr.even td {
+	background-color: #E5ECF9;
+	color: black;
+	font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New",
+		Courier, monospace;
+	font-size: 1em !important;
+	white-space: nowrap;
+}
+
+tr.break td {
+	background-color: #A8F58C;
+	color: black;
+}
+
+td.bg {
+	background-image: url(http://web.cse.ohio-state.edu/software/2221/web-sw1/extras/instructions/junit-getting-started/images/lab-icon.png);
+	background-repeat: no-repeat;
+	background-size: auto;
+	background-position: center;
+}
+
+td a:hover img,a:hover span {
+	background-color: #3CB4F6;
+	/* border: 1px solid yellow; */
+}
+/*
+img {
+	border-width: 0px;
+	width: 40px;
+	height: 40px;
+}
+*/
+textarea {
+	resize: both;
+	height: 16px;
+	overflow: auto;
+}
+</style>
+</head>
+<body>
+  <h1>Lab: Getting Started With JUnit</h1>
+  <hr />
+
+  <h2>Objective</h2>
+  <p>In this lab you will learn how to create and run a JUnit test
+    fixture in Eclipse. You will also practice how to interpret the
+    results of a JUnit test fixture run and how to use the results to
+    track down and fix issues in the code under test and in the test
+    code itself.</p>
+
+  <h2>Setup</h2>
+  <p>Follow these steps to set up a project for this lab.</p>
+  <ol>
+    <li>Create a new Eclipse project by copying <tt>ProjectTemplate</tt>.
+      Name the new project <tt>JUnitGettingStarted</tt>.
+    </li>
+    <li>Open the <tt>src</tt> folder of this project and then open
+      <tt>(default package)</tt>. As a starting point you can use any of
+      the Java files. Rename it <tt>FactoringUtility</tt> and delete the
+      other files from the project.
+    </li>
+    <li>Follow the link to <a href="FactoringUtility.java"><tt>FactoringUtility.java</tt></a>,
+      select all the code on that page and copy it to the clipboard;
+      then open the <tt>FactoringUtility.java</tt> file in Eclipse and
+      paste the code to replace the file contents. Save the file.
+    </li>
+  </ol>
+  <h2>Method</h2>
+  <p>Take a look at the <tt>FactoringUtility</tt> class. There are 4
+    methods in <tt>FactoringUtility</tt>: one implementation of <tt>aFactor</tt>
+    <script type="syntaxhighlighter" class="brush: java">
+      <![CDATA[
+    /**
+     * Reports some factor of a number.
+     * 
+     * @param n
+     *            the given number
+     * @return a factor of the given number
+     * @requires n > 0
+     * @ensures aFactor > 0 and n mod aFactor = 0
+     */
+    public static int aFactor(int n) {...}]]></script> and 3 different versions
+    of <tt>aNonTrivialFactor</tt> with the same contract but different
+    implementations<script type="syntaxhighlighter" class="brush: java">
+      <![CDATA[
+    /**
+     * Reports some non-trivial factor of a composite number.
+     * 
+     * @param n
+     *            the given number
+     * @return a non-trivial factor of the given number
+     * @requires n > 2 and [n is not a prime number]
+     * @ensures 1 < aNonTrivialFactor < n and n mod aNonTrivialFactor = 0
+     */
+    public static int aNonTrivialFactor(int n) {...}]]></script> Review these
+    contracts and make sure you understand how the two contracts are
+    different and what the requires and ensures say about the
+    preconditions and postconditions for these methods.
+  </p>
+  <h3>
+    <a name="create" />Creating a JUnit Test Fixture
+  </h3>
+  <p>To create a new JUnit test fixture, which is basically a normal
+    Java class with test methods identified by the <tt>@Test</tt>
+    annotation, follow these steps.
+  </p>
+  <ol>
+    <li>Right-click on the <tt>test</tt> folder in the <b>Package
+        Explorer</b> and select <b>New &gt; JUnit Test Case</b>. In the <b>New
+        JUnit Test Case</b> window do the following:
+      <ol>
+        <li>make sure that <b>New JUnit 4 test</b> is selected (we
+          do <i>not</i> want to use the outdated JUnit 3 version)
+        </li>
+        <li>make sure that the <b>Source folder</b> input box
+          contains <tt>JUnitGettingStarted/test</tt> (if that is not the
+          case, you should update the contents to make it so); this
+          specifies the location in your project where the JUnit test
+          fixture will be located
+        </li>
+        <li>enter <tt>FactoringUtilityTest</tt> in the <b>Name</b>
+          input box
+        </li>
+        <li>enter <tt>FactoringUtility</tt> in the <b>Class
+            under test</b> input box
+        </li>
+        <li>click <b>Finish</b>.
+        </li>
+      </ol></li>
+  </ol>
+  <p>Eclipse opens the newly created test fixture. Take a look at it
+    and observe the import statements (needed by JUnit) and the one
+    sample test case (which is set up to always fail).</p>
+  <p>Now replace the only test case with the following:<script
+      type="syntaxhighlighter" class="brush: java">
+      <![CDATA[
+    @Test
+    public void testAFactor1() {
+        /*
+         * Set up variables and call method under test
+         */
+        int n = 1;
+        int factor = FactoringUtility.aFactor(n);
+        /*
+         * Assert that values of variables match expectations
+         */
+        assertEquals(1, factor);
+    }
+]]></script></p>
+  <p>As you can see, the <tt>testAFactor1</tt> test case simply
+    invokes the <tt>FactoringUtility.aFactor</tt> static method under
+    test with an argument equal to 1. After the call, it checks that the
+    value returned is indeed 1, i.e., the only positive factor of 1 and
+    the only possible correct return value for the method. (Note that
+    because the <tt>aFactor</tt> <i>static</i> method is being invoked
+    in a different class from the one where it is declared, we need to
+    use the name of the method <i>qualified</i> with the name of the
+    class where it is declared.)
+  </p>
+  <h3>
+    <a name="run" />Running a JUnit Test Fixture
+  </h3>
+  <p>Let's run the test fixture to execute our one test case.
+    Running a JUnit test fixture in Eclipse is very similar to running a
+    Java program and there are several ways to do it. A simple way is to
+    right-click on the test fixture (<tt>FactoringUtilityTest.java</tt>)
+    in the <b>Package Explorer</b> view and select <b>Run As &gt;
+      JUnit Test</b> in the contextual pop-up menu.
+  </p>
+  <p>When you run a JUnit test fixture for the first time, something
+    interesting happens. A new view opens in Eclipse, the <b>JUnit</b>
+    view. This view shows the results of running the test fixture. In
+    this case, assuming everything went as expected, you should see a
+    green bar (indicating that all test cases passed) and above the bar,
+    three entries: <b>Runs: 1/1</b> (indicating that one test case out
+    of one available was run), <b>Errors: 0</b> (indicating that there
+    were no errors), and <b>Failures: 0</b> (indicating that there were
+    no failures). Below the green bar, you can expand a list of the test
+    cases run (only one in this case) showing whether each test case
+    passed (check-mark in green box) and how long it took to run the
+    test case.
+  </p>
+
+  <h3>Interpreting the Results</h3>
+  <p>To see what the possible outcomes of running a JUnit test
+    fixture are, let's copy some more test cases.</p>
+  <ol>
+    <li>Follow the link to <a href="FactoringUtilityTest.java"><tt>FactoringUtilityTest.java</tt></a>,
+      select all the code on that page and copy it to the clipboard;
+      then go back to <tt>FactoringUtilityTest.java</tt> in the Eclipse
+      editor and paste the code to replace the entire file contents.
+      Save the file.
+    </li>
+    <li>Note that the test cases you just copied are not meant to
+      be a systematically developed test plan for the methods under
+      test. Rather they are designed to show the different behaviors you
+      might observe when running JUnit test fixtures.</li>
+    <li>Run the fixture. Be patient, as some test cases may take a
+      little longer than expected (so you should try to explain why that
+      happens while analyzing the results later in the lab).</li>
+  </ol>
+  <p>Observe the results. You should see a red bar (instead of the
+    green one you encountered before) and above it the following: <b>Runs:
+      12/12</b>, <b>Errors: 2</b>, and <b>Failures: 4</b>.
+  </p>
+  <p>To interpret the result we first need to consider what could
+    happen when running a test case. These are the possible behaviors:</p>
+  <ol>
+    <li>The test case completes without run-time errors and all
+      assertions in the test case are satisfied. The test case passes,
+      i.e., it does not show a defect (bug) in the code under test.</li>
+    <li>The test case terminates with a run-time error (e.g.,
+      dividing by 0 or accessing an element of an array outside the
+      range of valid indices) but <i>not with a failed assertion</i>.
+      JUnit labels this an <i>error</i>.
+    </li>
+    <li>The test case terminates with a failed assertion (either
+      one of JUnit's assertions or one checking a method's
+      precondition). JUnit labels this a <i>failure</i>.
+    </li>
+    <li>The test case does not terminate. This is most likely due
+      to the presence of an infinite loop in the test case. You will
+      have to stop JUnit by clicking the red square button in the <b>JUnit</b>
+      view toolbar.
+    </li>
+  </ol>
+  <p>It is important to observe the following:</p>
+  <ul>
+    <li>The outcome of a JUnit test case is the result of the
+      execution of the <i>entire</i> test case and often it may not be
+      clear how the observed behavior is affected by the code under test
+      (i.e., the implementation of the method being tested) as opposed
+      to the code of the test case itself. In particular, in the case of
+      error, failure, or non termination, the problem can be either in
+      the method being tested or in the test case or in both.
+    </li>
+    <li>It is possible that even when the test case completes
+      successfully, i.e., without revealing a bug, a defect in the test
+      code (e.g., a wrong assertion) may be hiding an actual problem in
+      the method being tested.</li>
+    <li>If the test case makes a call to the method under test with
+      a violated precondition, JUnit does not warn the tester that the
+      test case is flawed and useless (because no matter what the method
+      under test does, the test case cannot show the presence of a bug).
+      The behavior here is affected by whether the violated precondition
+      is checked by the method under test or not. If the method under
+      test checks the precondition (and does so correctly), JUnit
+      displays it as a failure and the error message in Eclipse's <b>JUnit</b>
+      view shows the violated assertion error message. If the method
+      under test does not check the violated precondition, any of the
+      above four possible outcomes can occur. <b>Remember: test
+        cases that violate the requires clause of the method under test
+        are worthless and you should never include them in your test
+        fixtures.</b> (See slides 46-47 in <a
+      href="http://cse.osu.edu/software/2221/web-sw1/extras/slides/25.Testing.pdf">Testing</a>.)
+    </li>
+  </ul>
+  <h3>Your Turn</h3>
+  <p>First note the distinction between testing and debugging. The
+    goal of <i>testing</i> is to show that some code has a defect, while
+    the goal of <i>debugging</i> is to find the defect and repair it.
+    (See slide 29 in <a
+    href="http://cse.osu.edu/software/2221/web-sw1/extras/slides/25.Testing.pdf">Testing</a>.)
+    For the rest of this lab, you will be debugging the code under test
+    and sometimes the code of the test cases.
+  </p>
+  <p>It is now your turn to analyze, classify, and fix each test
+    case. For each of the test cases provided, fill out the
+    corresponding row in the table below with the following information
+    (if you want to be able to take a record of your results, you may
+    want to fill out a similar table on paper instead of on this page):</p>
+  <ol>
+    <li><b>Outcome</b>: the outcome of running the test case, one
+      of <i>pass</i>, <i>error</i>, or <i>failure</i>;</li>
+    <li><b>Problem Source</b>: if there is any defect exposed (or
+      hidden) by the test case, specify where the problem is, e.g., <i>method
+        under test</i> or <i>test case code</i> and what kind of problem you
+      discovered;</li>
+    <li><b>Resolution</b>: fix the problem in the method under test
+      or in the test fixture and briefly describe here how you resolved
+      it.</li>
+  </ol>
+  <p>After you apply each fix (either to the code of the method
+    under test or to the code of a test case), rerun the test fixture to
+    make sure the issue was indeed fixed and that you have not
+    introduced new bugs. If you have, you need to fix those as well.</p>
+
+  <table>
+    <tr class="header">
+      <th>Test Case</th>
+      <th>Outcome</th>
+      <th>Problem Source</th>
+      <th>Resolution</th>
+    </tr>
+    <tr class="odd">
+      <td>aFactorTest1</td>
+      <td><textarea cols="10"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+    </tr>
+    <tr class="even">
+      <td>aFactorTest2</td>
+      <td><textarea cols="10"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+    </tr>
+    <tr class="odd">
+      <td>aFactorTest3</td>
+      <td><textarea cols="10"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+    </tr>
+    <tr class="even">
+      <td>aFactorTest4</td>
+      <td><textarea cols="10"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+    </tr>
+    <tr class="odd">
+      <td>aFactorTest5</td>
+      <td><textarea cols="10"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+    </tr>
+    <tr class="even">
+      <td>aNonTrivialFactorV1Test1</td>
+      <td><textarea cols="10"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+    </tr>
+    <tr class="odd">
+      <td>aNonTrivialFactorV1Test2</td>
+      <td><textarea cols="10"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+    </tr>
+    <tr class="even">
+      <td>aNonTrivialFactorV1Test3</td>
+      <td><textarea cols="10"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+    </tr>
+    <tr class="odd">
+      <td>aNonTrivialFactorV2Test1</td>
+      <td><textarea cols="10"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+    </tr>
+    <tr class="even">
+      <td>aNonTrivialFactorV2Test2</td>
+      <td><textarea cols="10"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+    </tr>
+    <tr class="odd">
+      <td>aNonTrivialFactorV2Test3</td>
+      <td><textarea cols="10"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+    </tr>
+    <tr class="even">
+      <td>aNonTrivialFactorV3Test1</td>
+      <td><textarea cols="10"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+      <td><textarea cols="30"></textarea></td>
+    </tr>
+  </table>
+  <p>Note a couple of very useful features of the <b>JUnit</b> view
+    in Eclipse.
+  </p>
+  <ul>
+    <li>If you select (by clicking on it) one of the test cases in
+      the <b>JUnit</b> view, in the <b>Failure Trace</b> panel below the
+      list of test cases, Eclipse displays useful information about what
+      went wrong. Note the difference between the information provided
+      when an <tt>assertEquals</tt> fails (e.g., <tt>aNonTrivialFactorV2Test2</tt>)
+      vs. when an <tt>assertTrue</tt> fails (e.g., <tt>aNonTrivialFactorV1Test2</tt>).
+    </li>
+    <li>If you double-click on one of the test cases in the <b>JUnit</b>
+      view, Eclipse takes you in the editor to the statement in the test
+      case where the issue occurred. This is invaluable in determining
+      where the problem originated.
+    </li>
+  </ul>
+  <p>Once you are done with this part of the lab, you should have
+    fixed any bugs both in the methods in <tt>FactoringUtility</tt> and
+    in the test cases in <tt>FactoringUtilityTest</tt> and all the JUnit
+    test cases should pass. (Note that this goal may be achieved by all
+    three implementations of <tt>aNonTrivialFactor</tt> being the same
+    correct implementation and some test cases having to be removed,
+    e.g., because they are worthless...)
+  </p>
+  <h2>Additional Activities</h2>
+  <ol>
+    <li>Come up with at least 3 significantly different new test
+      cases for one of your corrected implementations of <tt>aNonTrivialFactor</tt>.
+    </li>
+    <li>Add them to the <tt>FactoringUtilityTest</tt> test fixture.
+    </li>
+    <li>Run the updated test fixture and fix any new problems you
+      discover.</li>
+  </ol>
+</body>
+</html>

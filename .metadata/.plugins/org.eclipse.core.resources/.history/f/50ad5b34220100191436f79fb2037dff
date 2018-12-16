@@ -1,0 +1,19 @@
+package lab6;
+
+public abstract class BreakFastTemplate {
+
+	
+	public void MakeBreakFast(int numOfEggs) {
+		crackingEggs(numOfEggs);
+		prepareEggs();
+		cook();
+		serve();
+	}
+	
+	abstract public void crackingEggs(int numOfEggs);
+	abstract public void prepareEggs() ;
+	abstract public void cook() ;
+	abstract public void serve() ;
+
+
+}

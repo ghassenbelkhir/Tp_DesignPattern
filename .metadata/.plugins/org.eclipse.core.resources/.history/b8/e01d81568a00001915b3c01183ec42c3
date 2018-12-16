@@ -1,0 +1,17 @@
+package lab3;
+
+public class HotFudge extends IceCreamDecorator {
+
+	@Override
+	public String getDescription() {
+		// TODO Auto-generated method stub
+		return super.description+", Hot Fudge";
+	}
+
+	@Override
+	public double cost() {
+		// TODO Auto-generated method stub
+		return cost()+0.60;
+	}
+
+}

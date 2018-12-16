@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="ChocolateTest" project="TP4_Decorateur" tests="4" started="4" failures="0" errors="0" ignored="0">
+  <testsuite name="question2.ChocolateTest" time="0.0">
+    <testcase name="testChocolateWhip" classname="question2.ChocolateTest" time="0.0"/>
+    <testcase name="testChocolate" classname="question2.ChocolateTest" time="0.0"/>
+    <testcase name="testChocolateWhipWhip" classname="question2.ChocolateTest" time="0.0"/>
+    <testcase name="testChocolateWhipSoyMocha" classname="question2.ChocolateTest" time="0.0"/>
+  </testsuite>
+</testrun>
