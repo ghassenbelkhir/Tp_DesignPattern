@@ -5,35 +5,35 @@ import java.awt.event.*;
 import javax.swing.*;
 
 /**
- * Classe AppletteQuestion2 - décrivez la classe ici
+ * Classe AppletteQuestion2 - dï¿½crivez la classe ici
  * 
  * @author: (votre nom)
- * @version: (un numéro de version ou une date)
+ * @version: (un numï¿½ro de version ou une date)
  */
 public class AppletteQuestion2 extends JApplet {
 
     private JButton boutonA = new JButton("A");
     private JButton boutonB = new JButton("B");
     private JButton boutonC = new JButton("C");
-    private boolean testSouris = false; // ne pas modifier cette déclaration, 
-                                        // installer le paramètre de cette applette Nom : mouse Valeur : oui,   
-                                        // sa prise en compte est à la ligne 37-39
+    private boolean testSouris = false; // ne pas modifier cette dï¿½claration, 
+                                        // installer le paramï¿½tre de cette applette Nom : mouse Valeur : oui,   
+                                        // sa prise en compte est ï¿½ la ligne 37-39
 
     private TextArea contenu = new TextArea(60, 80);
 
     /**
-     * Appelée par le navigateur ou le visualiseur afin de signaler à l'Applet
-     * qu'il est maintenant pris en charge par le système. Il est garanti que
-     * ceci précédera le premier appel de la méthode start.
+     * Appelï¿½e par le navigateur ou le visualiseur afin de signaler ï¿½ l'Applet
+     * qu'il est maintenant pris en charge par le systï¿½me. Il est garanti que
+     * ceci prï¿½cï¿½dera le premier appel de la mï¿½thode start.
      */
     public void init() {
-        // Il y a un conflit de sécurité avec les navigateurs courants (incluant
-        // Netscape & Internet Explorer) qui interdisent l'accès à la queue
-        // d'événements d'AWT --ce dont les JApplets ont besoin au démarrage.
+        // Il y a un conflit de sï¿½curitï¿½ avec les navigateurs courants (incluant
+        // Netscape & Internet Explorer) qui interdisent l'accï¿½s ï¿½ la queue
+        // d'ï¿½vï¿½nements d'AWT --ce dont les JApplets ont besoin au dï¿½marrage.
         JRootPane rootPane = this.getRootPane();
         rootPane.putClientProperty("defeatSystemEventQueueCheck", Boolean.TRUE);
         try {
-            testSouris = getParameter("mouse").equals("oui"); // le paramètre issu de la page HTML
+            testSouris = getParameter("mouse").equals("oui"); // le paramï¿½tre issu de la page HTML
         } catch (Exception e) {
         }
         JPanel enHaut = new JPanel();
@@ -49,14 +49,30 @@ public class AppletteQuestion2 extends JApplet {
         else
             enHaut.setBackground(Color.blue);
 
-        // à compléter en q2.1
+        // ï¿½ complï¿½ter en q2.1
         // le bouton A a 3 observateurs jbo1, jbo2 et jbo3
+        JButtonObserver jbo1 = new JButtonObserver("jbo1",contenu);
+        JButtonObserver jbo2 = new JButtonObserver("jbo2",contenu);
+        JButtonObserver jbo3 = new JButtonObserver("jbo3",contenu);
+        boutonA.addActionListener(jbo1);
+        boutonA.addActionListener(jbo2);
+        boutonA.addActionListener(jbo3);
 
         // le bouton B a 2 observateurs jbo1 et jbo2
-
+        boutonB.addActionListener(jbo1);
+        boutonB.addActionListener(jbo2);
+        
         // le bouton C a 1 observateur jbo1
-
-        if (testSouris) { // à compléter en q2.2
+        boutonC.addActionListener(jbo1);
+        if (testSouris) { // ï¿½ complï¿½ter en q2.2
+        	
+        	JMouseObserver jmo1 = new JMouseObserver("jmo1", contenu);
+        	JMouseObserver jmo2 = new JMouseObserver("jmo2", contenu);
+        	JMouseObserver jmo3 = new JMouseObserver("jmo3", contenu);
+        	 boutonA.addMouseListener(jmo1);
+        	 boutonB.addMouseListener(jmo2);
+        	 boutonC.addMouseListener(jmo3);
+        
             // le bouton A a 1 observateur jmo1
             // le bouton B a 1 observateur jmo2
             // le bouton C a 1 observateur jmo3

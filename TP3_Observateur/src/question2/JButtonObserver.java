@@ -1,16 +1,18 @@
 package question2;
 
-//import java.awt.event. // à compléter
-//import java.awt.event. // à compléter
+//import java.awt.event. // ï¿½ complï¿½ter
+//import java.awt.event. // ï¿½ complï¿½ter
 import java.awt.TextArea;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
- * Décrivez votre classe JButtonObserver ici.
+ * Dï¿½crivez votre classe JButtonObserver ici.
  * 
  * @author (votre nom)
- * @version (un numéro de version ou une date)
+ * @version (un numï¿½ro de version ou une date)
  */
-public class JButtonObserver { // à compléter
+public class JButtonObserver implements ActionListener  { // ï¿½ complï¿½ter
 
 	private String nom;
 	private TextArea contenu;
@@ -31,14 +33,19 @@ public class JButtonObserver { // à compléter
 	/**
 	 * affichage d'un message dans la zone de texte ce message est de la forme
 	 * observateur this.nom : clic du bouton nom_du_bouton exemple : observateur
-	 * jbo1 : clic du bouton A, voir la méthode getActionCommand()
+	 * jbo1 : clic du bouton A, voir la mï¿½thode getActionCommand()
 	 * 
-	 * @param à
-	 *            compléter
+	 * @param ï¿½
+	 *            complï¿½ter
 	 */
-	public void action________/* à compléter */(/* à compléter */) {
-		String message = ""; // à compléter, inspirez-vous de l'applette de l'énoncé
+	
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		String message = nom; // ï¿½ complï¿½ter, inspirez-vous de l'applette de l'ï¿½noncï¿½
 		contenu.append(message + "\n");
+		
 	}
 
 }
